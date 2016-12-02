@@ -1,0 +1,84 @@
+C:\Users\nx7233pl\Documents\school\cs341\graph>java Main
+Enter K-Formula
+***abcd
+Stack before check: ***ab
+Created edge *ab
+Stack after check: **a
+Stack before check: **ac
+Created edge *ac
+Stack after check: *a
+Stack before check: *ad
+Created edge *ad
+Stack after check: a
+Converted ***abcd to edges *ab*ac*ad
+
+***a***bbcecd
+Stack before check: ***a***bb
+Created edge *bb
+Stack after check: ***a**b
+Stack before check: ***a**bc
+Created edge *bc
+Stack after check: ***a*b
+Stack before check: ***a*be
+Created edge *be
+Stack after check: ***ab
+Stack before check: ***ab
+Created edge *ab
+Stack after check: **a
+Stack before check: **ac
+Created edge *ac
+Stack after check: *a
+Stack before check: *ad
+Created edge *ad
+Stack after check: a
+Converted ***a***bbcecd to edges *bb*bc*be*ab*ac*ad
+
+
+*a**d*b**cd*ea
+Stack before check: *a**d*b**cd
+Created edge *cd
+Stack after check: *a**d*b*c
+Stack before check: *a**d*b*c*ea
+Created edge *ea
+Stack after check: *a**d*b*ce
+Stack before check: *a**d*b*ce
+Created edge *ce
+Stack after check: *a**d*bc
+Stack before check: *a**d*bc
+Created edge *bc
+Stack after check: *a**db
+Stack before check: *a**db
+Created edge *db
+Stack after check: *a*d
+Invalid K-Formula!
+
+
+***a*bc**dcb
+Stack before check: ***a*bc
+Created edge *bc
+Stack after check: ***ab
+Stack before check: ***ab
+Created edge *ab
+Stack after check: **a
+Stack before check: **a**dc
+Created edge *dc
+Stack after check: **a*d
+Stack before check: **a*db
+Created edge *db
+Stack after check: **ad
+Stack before check: **ad
+Created edge *ad
+Stack after check: *a
+Invalid K-Formula!
+
+a**b*cd
+Stack before check: a**b*cd
+Created edge *cd
+Stack after check: a**bc
+Stack before check: a**bc
+Created edge *bc
+Stack after check: a*b
+Invalid K-Formula!
+
+Exception in thread "main"
+C:\Users\nx7233pl\Documents\school\cs341\graph>

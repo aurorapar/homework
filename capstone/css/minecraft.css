@@ -1,0 +1,150 @@
+body 
+{    
+    font-family: helvetica;
+    background-image: url('http://i.imgur.com/58OCC3A.jpg');
+}
+
+#banner 
+{
+    text-align:center;
+    height: 200px;
+}
+
+header
+{
+    height: 0px;
+}
+
+#header-list
+{
+    width: 400px;
+    height: 80px;
+    margin: 0 auto;
+}
+
+header ul li 
+{
+    text-align: center;
+    display:inline-block;
+    outline-color: #00DDFF;
+    outline-style: solid;
+    margin:10px 10px 10px 10px;
+    background: rgba(60,191,255,.8);
+    padding: 10px 10px 10px 10px;
+    font-size: 20px;
+}
+
+header ul li a
+{
+    color: black;
+    text-decoration:underline;
+}   
+
+#sidebar
+{
+    float:left;
+    margin-left: 125px;
+    font-size: 20px;
+    list-style-type: none;
+    margin-top: 167px;
+}
+
+#sidebar a
+{
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.sidebar-element
+{
+    outline-color: #00BBFF;
+    outline-style: solid;
+    background-color: rgba(0,191,255,.4);
+    padding: 8px 8px 8px 8px;
+    margin-top: 10px;
+}
+
+#subject
+{
+    display:inline-block;
+    margin-top: 100px;
+    margin-left: 40px;
+    font-size:50px;
+    font-weight: bold;
+    
+}
+
+
+#content
+{
+    margin-top: 20px;
+    margin-left: 300px;
+    width: 1000px;
+    outline-color: #00DDFF;
+    outline-style: solid;
+    background: rgba(0,191,255,.8);
+    padding: 20px 20px 20px 20px;
+    font-weight: bold;
+}
+
+#content ul
+{
+    list-style-type: none;
+    width: 55%;
+    margin: 0 auto;
+}
+
+#content ul li
+{
+    text-align: center;
+    display: inline;
+}
+    
+#content a
+{
+    color: black;
+    text-decoration: none;
+}
+
+.content-element
+{
+    padding: 8px 8px 8px 8px;
+    margin-top: 10px;
+}
+
+.serveroption
+{
+    margin: 8px 8px 8px 8px;
+}
+
+.content-element-link
+{
+    outline-color: #00DDFF;
+    outline-style: solid;
+    background-color: rgba(0,191,255,.8);
+    padding: 8px 8px 8px 8px;
+    text-transform: uppercase;
+}
+
+.rules
+{
+    height: 200px;
+    width: 500px;
+}
+
+.console
+{
+    outline-color: gray;
+    outline-style: solid;    
+    background: black;
+    color: white;
+    font-family: Courier New;
+    width: 800px;
+    height:300px;
+}
+
+footer
+{   
+    
+}

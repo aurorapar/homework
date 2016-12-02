@@ -1,0 +1,35 @@
+C:\Users\nx7233pl\Documents\school\cs341\natcor>java Main (P(QR))
+Node R has no left child and has no right child
+Node Q has no left child and has a right child of R
+Node P has a left child of Q and has no right child
+Inorder Traversal: QRP
+Preorder Traversal: PQR
+
+C:\Users\nx7233pl\Documents\school\cs341\natcor>java Main (P(Q(ST)R(U)))
+Node T has no left child and has no right child
+Node S has no left child and has a right child of T
+Node U has no left child and has no right child
+Node R has a left child of U and has no right child
+Node Q has a left child of S and has a right child of R
+Node P has a left child of Q and has no right child
+Inorder Traversal: STQURP
+Preorder Traversal: PQSTRU
+
+C:\Users\nx7233pl\Documents\school\cs341\natcor>java Main (A(B(E(KL)F)C(G)D(H(M)IJ)))
+Node L has no left child and has no right child
+Node K has no left child and has a right child of L
+Node F has no left child and has no right child
+Node E has a left child of K and has a right child of F
+Node G has no left child and has no right child
+Node M has no left child and has no right child
+Node J has no left child and has no right child
+Node I has no left child and has a right child of J
+Node H has a left child of M and has a right child of I
+Node D has a left child of H and has no right child
+Node C has a left child of G and has a right child of D
+Node B has a left child of E and has a right child of C
+Node A has a left child of B and has no right child
+Inorder Traversal: KLEFBGCMHIJDA
+Preorder Traversal: ABEKLFCGDHMIJ
+
+C:\Users\nx7233pl\Documents\school\cs341\natcor>

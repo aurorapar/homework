@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>AJAX Hello</title>
+<meta charset="utf-8">
+
+<script type="text/javascript">
+window.onload = init;
+
+function init() {
+  var httpRequest;
+  document.getElementById("y").onclick = function() { makeRequest('test.html'); };
+
+  function makeRequest(url) {
+    httpRequest = new XMLHttpRequest();
+
+    if (!httpRequest) {
+      alert('Giving up :( Cannot create an XMLHTTP instance');
+      return false;
+    }
+    httpRequest.onreadystatechange = alertContents;
+    httpRequest.open('GET', url);
+    httpRequest.send();
+  }
+
+  function alertContents() {
+    if (httpRequest.readyState === XMLHttpRequest.DONE) {
+      if (httpRequest.status === 200) {
+        alert(httpRequest.responseText);
+		document.getElementById("x").innerHTML = httpRequest.responseText;
+      } else {
+        alert('There was a problem with the request.');
+      }
+    }
+	alert(httpRequest.readyState);
+  }
+}
+
+</script>
+</head>
+<body>
+	<h1>This is a Test</h1>
+	<button id="y">Ajax Test</button>
+	<p>
+		Upon button click, a greeting should show up below.
+	</p>
+	<div id="x"> </div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+       1                                ; FIND NTH PRIME
+       2                                ; 1 Word should suffice, beyond scope of program
+       3                                ; to find higher than the 2^16 prime
+       4                                ; First 3 primes given (2, 3, 5)
+       5                                ; R0,R1 - TMP
+       6                                ;   Use Register 0, as TMP is the only address
+       7                                ;   we need to divide
+       8                                ; R2 - Divisor DVR
+       9                                ; R3 - Dividened DVN
+      10                                ; R4 - DVR / 2
+      11                                ; R5 - Primes Found 
+      12                                
+      13 000000 005003                          CLR R3          ; 
+      14 000002 005203                          INC R3          ; 
+      15 000004 005203                          INC R3          ; 
+      16 000006 005203                          INC R3          ; TESTING 3 FIRST
+      17 000010 005005                          CLR R5
+      18 000012 005205                          INC R5          ; 2 IS PRIME
+      19 000014 005002                          CLR R2
+      20 000016 000411                          BR INCDVR        
+      21                                        
+      22 000020 005203                  INCDVN: INC R3          ; DONT TEST EVEN
+      23 000022 005203                          INC R3
+      24                                ; Increment DVN by two instead of testing all
+      25                                ; values.
+      26                                
+      27 000024 010304                          MOV R3, R4      ; R4 = DVN
+      28 000026 006204                          ASR R4          ; R4 = DVN / 2
+      29                                ; Negative numbers aren't a valid input, so we
+      30                                ; don't need to worry about high-order bit
+      31                                        
+      32 000030 005002                          CLR R2
+      33 000032 005202                          INC R2          ; DV = 3
+      34 000034 005202                          INC R2
+      35 000036 005202                          INC R2
+      36 000040 000402                          BR TEST
+      37                                ; X / 2 = Y
+      38                                ; All values greater than Y that divide into X
+      39                                ; will have a corresponding multiple below Y
+      40                                ; negating the need to check for these values.
+      41                                ; Testing further divisions may have diminishing
+      42                                ; returns on program efficiency. Half of all  
+      43                                ; divisors is my supposed most efficient check,
+      44                                ; and increased algorithm complexity MIGHT also
+      45                                ; decrease efficiency.
+      46                                        
+      47 000042 005202                  INCDVR: INC R2
+      48 000044 005202                          INC R2
+      49                                                ; NOT ASL
+      50                                
+      51 000046 005000                  TEST:   CLR R0          
+      52 000050 005001                          CLR R1
+      53 000052 010301                          MOV R3, R1
+      54 000054 071002                          DIV R2, R0      ; DVN  / DVR
+      55 000056 005701                          TST R1
+      56 000060 001757                          BEQ INCDVN      ; BREAK ON NOT PRIME
+      57                                        
+      58 000062 020204                          CMP R2, R4      ; MAX REACHED?
+      59 000064 002766                          BLT INCDVR      ; INC DVR        
+      60                                        
+      61 000066 005205                          INC R5
+      62 000070 020567  000010                  CMP R5, NTH    ; TEST IF FOUND ALL PRIMES
+      63 000074 001351                          BNE INCDVN
+      64                                        
+      65 000076 010367  000004                  MOV R3, ANS     ; ANS LAST PRIME WHEN FINISHED        
+      66 000102 000000                          HALT
+      67                                        
+      68 000104                         NTH:    .BLKW   1;    Nth Prime we want     Need in memory
+      69 000106                         ANS:    .BLKW   1;    Answer                Need in memory
+      70                                ;TWO:    .BLKW   1;    2                    R5
+      71                                ;DVN:    .BLKW   2;    Dividened            R3
+      71                                ;DVR:    .BLKW   1;    Divisor  Used in     R2
+
+Symbol Table:
+ANS	  000106 
+INCDVN	  000020 
+INCDVR	  000042 
+NTH	  000104 
+TEST	  000046 

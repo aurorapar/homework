@@ -1,0 +1,19 @@
+
+
+    Grab images from game server
+
+    Setup SQL DB/tables
+    Create login
+    
+    Install/Reinstall Minecraft server
+        Ability to specify version
+        Put version in DB
+    Start/Stop/Reboot server
+        Get PID and status of PID
+        Implement RCON (google search Minecraft PHP RCON)
+        Gracefully stop server using RCON
+    Get console status
+        Put in image on separate page
+    
+    Change settings for install path
+    Change settings for server.properties

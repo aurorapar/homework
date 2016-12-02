@@ -1,0 +1,73 @@
+; FIND NTH PRIME
+; 1 Word should suffice, beyond scope of program
+; to find higher than the 2^16 prime
+; First 3 primes given (2, 3, 5)
+; R0,R1 - TMP
+;   Use Register 0, as TMP is the only address
+;   we need to divide
+; R2 - Divisor DVR
+; R3 - Dividened DVN
+; R4 - DVR / 2
+; R5 - Primes Found 
+
+        CLR R3          ; 
+        INC R3          ; 
+        INC R3          ; 
+        INC R3          ; TESTING 3 FIRST
+        CLR R5
+        INC R5          ; 2 IS PRIME
+        CLR R2
+        BR INCDVR        
+        
+INCDVN: INC R3          ; DONT TEST EVEN
+        INC R3
+; Increment DVN by two instead of testing all
+; values.
+
+        MOV R3, R4      ; R4 = DVN
+        ASR R4          ; R4 = DVN / 2
+; Negative numbers aren't a valid input, so we
+; don't need to worry about high-order bit
+; X / 2 = Y
+; All values greater than Y that divide into X
+; will have a corresponding multiple below Y
+; negating the need to check for these values.
+; Testing further divisions may have diminishing
+; returns on program efficiency. Half of all  
+; divisors is my supposed most efficient check,
+; and increased algorithm complexity MIGHT also
+; decrease efficiency.
+        
+        CLR R2
+        INC R2          ; DV = 3
+        INC R2
+        INC R2
+        BR TEST
+
+        
+INCDVR: INC R2
+        INC R2
+                ; NOT ASL
+
+TEST:   CLR R0          
+        CLR R1
+        MOV R3, R1
+        DIV R2, R0      ; DVN  / DVR
+        TST R1
+        BEQ INCDVN      ; BREAK ON NOT PRIME
+        
+        CMP R2, R4      ; MAX REACHED?
+        BLT INCDVR      ; INC DVR        
+        
+        INC R5
+        CMP R5, NTH    ; TEST IF FOUND ALL PRIMES
+        BNE INCDVN
+        
+        MOV R3, ANS     ; ANS LAST PRIME WHEN FINISHED        
+        HALT
+        
+NTH:    .BLKW   1;    Nth Prime we want     Need in memory
+ANS:    .BLKW   1;    Answer                Need in memory
+;TWO:    .BLKW   1;    2                    R5
+;DVN:    .BLKW   2;    Dividened            R3
+;DVR:    .BLKW   1;    Divisor  Used in     R2

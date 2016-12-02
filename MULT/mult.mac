@@ -1,0 +1,66 @@
+
+
+                    .TITLE  Resursive Multiply
+                    .BLKW   1000.
+        ANS:        .BLKW   2
+        M:          .BLKW   1
+        N:          .BLKW   1
+                    
+                    
+        START:      MOV #START, SP      ; R6 gets set to this address
+        
+                    SUB #10., SP        ; R6 -= 10, Creation of Activation Record
+                                        ; R6 = address of start - 10                    
+                    MOV N, 8.(SP)       ; R6[1] = First multiple
+                    MOV M, 6(SP)        ; R6[2] = Second Multiple
+                    
+                    JMP RMUL            ; Go to recursive "function"
+                    
+        NEXT:       MOV 4(SP), ANS+2
+                    MOV 2(SP), ANS
+                    
+                    ADD #10., SP
+                    
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+        
+        RETURN:     JMP @0(SP)
+        
+        RMUL:       TST 8.(SP)          ; 
+                    BLE RETURN          ; R6[1] / N <= 0 ?   
+                    
+                    
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                        ; Create new record
+                    
+        NEWRCRD:    MOV SP, R5          ; R5 = previous address of R6,
+                                        ; and is the previous activation record
+                    SUB #10., SP        ; R6 moves "down" 10 addresses,
+                                        ; creating a new record
+                    MOV #RETMULT, 0(SP) ; and puts the return address at
+                                        ; R6[0]
+                    
+                    DEC 8.(R5)
+                    MOV 8.(R5), 8.(SP)  ; R5 is a holder for our data in the
+                    MOV 6(R5), 6(SP)   ; "bottom" record
+
+                    JMP RMUL            ;  We keep decrementing one of the multiples 
+                                        ; until we hit 0. This keeps pushing the 
+                                        ; address of RETMULT onto the stack until
+                                        ; 0 is hit, then it pops that address
+                                        ; setting the program counter to that
+                                        ; label
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                    
+        RETMULT:    MOV 4(SP), R1       ; Move values to temp location in order
+                    MOV 2(SP), R0       ; to store them in record after returning
+                    
+                    ADD #10., SP        ; Return to address at the top of the stack
+                    
+                    MOV R1, 4(SP)       ; Restore values into old record
+                    MOV R0, 2(SP)
+                    ADD 6(SP), 4(SP)    ; Would *probably* be faster to add to register     
+                    ADC 2(SP)           ; first, but useful to leave for debugging
+                    
+                    JMP @0(SP)

@@ -1,0 +1,77 @@
+       1                                
+       2                                
+       3                                                    .TITLE  Resursive Multiply
+       4 000000                                             .BLKW   1000.
+       5 003720                                 ANS:        .BLKW   2
+       6 003724                                 M:          .BLKW   1
+       7 003726                                 N:          .BLKW   1
+       8                                                    
+       9                                                    
+      10 003730 012706  003730                  START:      MOV #START, SP      ; R6 gets set to this address
+      11                                        
+      12 003734 162706  000012                              SUB #10., SP        ; R6 -= 10, Creation of Activation Record
+      13                                                                        ; R6 = address of start - 10                    
+      14 003740 016766  177762  000010                      MOV N, 8.(SP)       ; R6[1] = First multiple
+      15 003746 016766  177752  000006                      MOV M, 6(SP)        ; R6[2] = Second Multiple
+      16                                                    
+      17 003754 000167  000024                              JMP RMUL            ; Go to recursive "function"
+      18                                                    
+      19 003760 016667  000004  177734          NEXT:       MOV 4(SP), ANS+2
+      20 003766 016667  000002  177724                      MOV 2(SP), ANS
+      21                                                    
+      22 003774 062706  000012                              ADD #10., SP
+      23                                                    
+      24                                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      25                                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      26                                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      27                                        
+      28 004000 000176  000000                  RETURN:     JMP @0(SP)
+      29                                        
+      30 004004 005766  000010                  RMUL:       TST 8.(SP)          ; 
+      31 004010 003773                                      BLE RETURN          ; R6[1] / N <= 0 ?   
+      32                                                    
+      33                                                    
+      34                                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      35                                                                        ; Create new record
+      36                                                    
+      37 004012 010605                          NEWRCRD:    MOV SP, R5          ; R5 = previous address of R6,
+      38                                                                        ; and is the previous activation record
+      39 004014 162706  000012                              SUB #10., SP        ; R6 moves "down" 10 addresses,
+      40                                                                        ; creating a new record
+      41 004020 012766  004052  000000                      MOV #RETMULT, 0(SP) ; and puts the return address at
+      42                                                                        ; R6[0]
+      43                                                    
+      44 004026 005365  000010                              DEC 8.(R5)
+      45 004032 016566  000010  000010                      MOV 8.(R5), 8.(SP)  ; R5 is a holder for our data in the
+      46 004040 016566  000006  000006                      MOV 6(R5), 6(SP)   ; "bottom" record
+      47                                
+      48 004046 000167  177732                              JMP RMUL            ;  We keep decrementing one of the multiples 
+      49                                                                        ; until we hit 0. This keeps pushing the 
+      50                                                                        ; address of RETMULT onto the stack until
+      51                                                                        ; 0 is hit, then it pops that address
+      52                                                                        ; setting the program counter to that
+      53                                                                        ; label
+      54                                        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+      55                                                    
+      56 004052 016601  000004                  RETMULT:    MOV 4(SP), R1       ; Move values to temp location in order
+      57 004056 016600  000002                              MOV 2(SP), R0       ; to store them in record after returning
+      58                                                    
+      59 004062 062706  000012                              ADD #10., SP        ; Return to address at the top of the stack
+      60                                                    
+      61 004066 010166  000004                              MOV R1, 4(SP)       ; Restore values into old record
+      62 004072 010066  000002                              MOV R0, 2(SP)
+      63 004076 066666  000006  000004                      ADD 6(SP), 4(SP)    ; Would *probably* be faster to add to register     
+      64 004104 005566  000002                              ADC 2(SP)           ; first, but useful to leave for debugging
+      65                                                    
+      65 004110 000176  000000                              JMP @0(SP)
+
+Symbol Table:
+ANS	  003720 
+M	  003724 
+N	  003726 
+NEWRCR	  004012 
+NEXT	  003760 
+RETMUL	  004052 
+RETURN	  004000 
+RMUL	  004004 
+START	  003730 
